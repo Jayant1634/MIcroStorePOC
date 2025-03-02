@@ -1,0 +1,16 @@
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net9.0-windows\Free MS Store Apps.exe
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net9.0-windows\Free MS Store Apps.deps.json
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net9.0-windows\Free MS Store Apps.runtimeconfig.json
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net9.0-windows\Free MS Store Apps.dll
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net9.0-windows\Free MS Store Apps.pdb
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free_MS_Store_Apps.Form1.resources
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free MS Store Apps.csproj.GenerateResource.cache
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free MS Store Apps.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free MS Store Apps.AssemblyInfoInputs.cache
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free MS Store Apps.AssemblyInfo.cs
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free MS Store Apps.csproj.CoreCompileInputs.cache
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free MS Store Apps.dll
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\refint\Free MS Store Apps.dll
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free MS Store Apps.pdb
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\Free MS Store Apps.genruntimeconfig.cache
+C:\Users\devbk\Downloads\Free MS Store Apps\obj\Release\net9.0-windows\ref\Free MS Store Apps.dll

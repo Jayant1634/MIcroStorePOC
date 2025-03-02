@@ -1,0 +1,5 @@
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net6.0-windows\publish\Free MS Store Apps.exe
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net6.0-windows\publish\Free MS Store Apps.dll
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net6.0-windows\publish\Free MS Store Apps.deps.json
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net6.0-windows\publish\Free MS Store Apps.runtimeconfig.json
+C:\Users\devbk\Downloads\Free MS Store Apps\bin\Release\net6.0-windows\publish\Free MS Store Apps.pdb

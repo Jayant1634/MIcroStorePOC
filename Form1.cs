@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
 
 namespace Free_MS_Store_Apps
 {
@@ -41,13 +42,58 @@ namespace Free_MS_Store_Apps
         }
 
 
+        //private void FolderPermi()
+        //{
+        //    DirectoryInfo directoryInfo = new DirectoryInfo(defaultAppsDir);
+        //    DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
+
+        //    directorySecurity.SetOwner(WindowsIdentity.GetCurrent().User);
+        //    directoryInfo.SetAccessControl(directorySecurity);
+        //}
+
         private void FolderPermi()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(defaultAppsDir);
-            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
+            if (!IsAdministrator())
+            {
+                MessageBox.Show("This application needs to be run as an administrator to modify the directory permissions.", "Permission Denied", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            directorySecurity.SetOwner(WindowsIdentity.GetCurrent().User);
-            directoryInfo.SetAccessControl(directorySecurity);
+            try
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(defaultAppsDir);
+                DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
+
+                FileSystemAccessRule rule = new FileSystemAccessRule(
+                           "Users",
+                           FileSystemRights.FullControl,
+                           InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
+                           PropagationFlags.None,
+                           AccessControlType.Allow);
+
+                directorySecurity.AddAccessRule(rule);
+
+                directoryInfo.SetAccessControl(directorySecurity);
+
+                Console.WriteLine("Access rule added successfully.");
+
+
+                // directorySecurity.SetOwner(WindowsIdentity.GetCurrent().User);
+                // directoryInfo.SetAccessControl(directorySecurity);
+                // MessageBox.Show("Permissions have been successfully set.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                //MessageBox.Show($"Failed to set permissions: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("Unable To Do Anything abt perission :P its okay things are done :} ");
+            }
+        }
+
+        private bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
 
@@ -104,10 +150,10 @@ namespace Free_MS_Store_Apps
         {
             var file_parts = file_name.Split("_");
             var file_parts_e = file_name.Split(".");
-            file_name = file_name.Replace("." + file_parts_e[file_parts_e.Length - 1],"");
+            file_name = file_name.Replace("." + file_parts_e[file_parts_e.Length - 1], "");
             var ext = file_parts[0];
             var directories = Directory.GetDirectories(defaultAppsDir,
-                   ext  +  "*",
+                   ext + "*",
                     SearchOption.TopDirectoryOnly);
 
             //MessageBox.Show(String.Join(",", directories));
@@ -184,15 +230,15 @@ namespace Free_MS_Store_Apps
                 {
                     Checking = true;
                     MessageBox.Show($"Invailed Output Path, {(object)WSAppOutputPath} Directory not found!");
-                
+
+                }
+            }
+            else
+            {
+                Checking = true;
+                MessageBox.Show($"Invailed App Path, {(object)WSAppXmlFile} file not found! {WSAppPath}");
             }
         }
-                else
-                {
-                    Checking = true;
-                    MessageBox.Show($"Invailed App Path, {(object)WSAppXmlFile} file not found! {WSAppPath}");
-                }
-}
 
         async private void MakeAppx()
         {
@@ -207,8 +253,8 @@ namespace Free_MS_Store_Apps
                 string runres = await RunProcess(str, args);
                 if (runres.Length != 0)
                 {
-                   label3.Text = $".appx created succeeded.";
-                   MakeCert();
+                    label3.Text = $".appx created succeeded.";
+                    MakeCert();
                 }
                 else
                 {
@@ -233,14 +279,14 @@ namespace Free_MS_Store_Apps
                     File.Delete(WSAppOutputPath + "\\" + WSAppFileName + ".pvk");
                 if (File.Exists(WSAppOutputPath + "\\" + WSAppFileName + ".cer"))
                     File.Delete(WSAppOutputPath + "\\" + WSAppFileName + ".cer");
-                 label3.Text = "Creating certificate..";
+                label3.Text = "Creating certificate..";
                 Console.Write("Certificate creation: ");
                 string runres = await RunProcess(str, args);
 
                 if (runres.Length != 0)
                 {
-                   /* while (Checking)*/
-                        Pvk2Pfx();
+                    /* while (Checking)*/
+                    Pvk2Pfx();
                 }
                 else
                 {
@@ -272,8 +318,8 @@ namespace Free_MS_Store_Apps
                 if (runres.Length == 0)
                 {
                     Console.Write("succeeded");
-                /*    while (Checking)*/
-                        SignApp();
+                    /*    while (Checking)*/
+                    SignApp();
                 }
                 else
                 {
@@ -288,7 +334,7 @@ namespace Free_MS_Store_Apps
             }
         }
 
-       async private void SignApp()
+        async private void SignApp()
         {
             string str = AppCurrentDirctory + "\\utils\\signtool.exe";
             string args = "sign -fd SHA256 -a -f \"" + WSAppOutputPath + "\\" + WSAppFileName + ".pfx\" \"" + WSAppOutputPath + "\\" + WSAppFileName + ".appx\"";
@@ -301,7 +347,7 @@ namespace Free_MS_Store_Apps
                 {
                     Checking = false;
                     Console.WriteLine("Package signing succeeded. Please install the '.cer' file to [Local Computer\\Trusted Root Certification Authorities] before install the App Package or use 'WSAppPkgIns.exe' file to install the App Package!");
-                   
+
                     RemovePackage(WSAppFileName);
 
                     X509Store store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
@@ -309,7 +355,7 @@ namespace Free_MS_Store_Apps
                     store.Add(new X509Certificate2(X509Certificate.CreateFromCertFile(WSAppFileName + ".cer")));
                     store.Close();
 
-                    InstallPackage(WSAppFileName + ".appx",false);
+                    InstallPackage(WSAppFileName + ".appx", false);
                     DeletePackageFiles(WSAppFileName);
                 }
                 else
@@ -328,16 +374,17 @@ namespace Free_MS_Store_Apps
 
 
 
-        async private Task<string> getPackagesResponse(string url)
+
+        async private Task<List<FileEntry>> getPackagesResponse(string url)
         {
             HttpClientHandler handler = new HttpClientHandler();
             handler.AutomaticDecompression = System.Net.DecompressionMethods.All;
 
             HttpClient client = new HttpClient(handler);
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://store.rg-adguard.net/api/GetFiles");
+            var apiUrl = $"https://msstore.73sec.eu.org/api/Packages?inputform=url&Id={Uri.EscapeDataString(url)}&environment=Production";
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, apiUrl); // Changed to GET request
             request.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
-            request.Content = new StringContent("type=url&url=" + url);
-            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
             progressBar1.Value = 35;
             HttpResponseMessage response = await client.SendAsync(request);
@@ -345,9 +392,16 @@ namespace Free_MS_Store_Apps
             string responseBody = await response.Content.ReadAsStringAsync();
             progressBar1.Value = 100;
 
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            List<FileEntry> packages = JsonSerializer.Deserialize<List<FileEntry>>(responseBody, options);
 
-            return responseBody;
+            return packages;
         }
+
+
 
 
         private void InitializeListView()
@@ -362,55 +416,78 @@ namespace Free_MS_Store_Apps
 
         }
 
-        private void AddCustomListItem(string file, string size, Color textColor, int fontSize, int spacing)
+        private void AddCustomListItem(string text, string subText, Color textColor, int indent, int subItemIndent)
         {
-            ListViewItem item = new ListViewItem(file);
-            item.SubItems.Add(size);
+            ListViewItem item = new ListViewItem();
+            item.Text = text;
             item.ForeColor = textColor;
-            item.Font = new Font(listView1.Font.FontFamily, fontSize);
-            item.UseItemStyleForSubItems = false;
+            item.IndentCount = indent; // Indent the main item
 
-            for (int i = 1; i < item.SubItems.Count; i++)
-            {
-                item.SubItems[i].Text = " " + item.SubItems[i].Text;
-                item.SubItems[i].Font = new Font(item.Font.FontFamily, fontSize, FontStyle.Bold);
-
-            }
+            ListViewItem.ListViewSubItem subItem = new ListViewItem.ListViewSubItem();
+            subItem.Text = subText;
+            // subItem.IndentCount = subItemIndent; // This property does not exist, so it should be removed
+            item.SubItems.Add(subItem);
 
             listView1.Items.Add(item);
         }
+
+
 
         async private void button1_Click(object sender, EventArgs e)
         {
             //fetching packages
             var pakUrl = textBox1.Text;
-            var data = await getPackagesResponse(pakUrl);
+            var packages = await getPackagesResponse(pakUrl); // get List<FileEntry> directly
             listView1.Items.Clear();
 
 
-            if (data != null)
+            if (packages != null)
             {
                 listView1.FullRowSelect = true;
-                fileEntries = FileEntityTools.ExtractFileEntries(data);
+                fileEntries = packages; // Directly use the deserialized list
 
                 foreach (var entry in fileEntries)
                 {
-                    /*listView1 = new ListView();*/
-                    if (entry.File.Contains(".msixbundle"))
+                    if (entry.packagefilename.Contains(".msixbundle") || entry.packagefilename.Contains(".Msixbundle"))
                     {
-                        AddCustomListItem(entry.File, entry.Size, Color.DarkGreen, 10, 20);
+                        // Convert size from bytes to MB or KB for display
+                        string sizeText = FormatFileSize(entry.packagefilesize);
+                        AddCustomListItem(entry.packagefilename, sizeText, Color.DarkGreen, 10, 20);
                     }
-                    AddCustomListItem(entry.File, entry.Size, Color.Black, 10, 20);
+                    else
+                    {
+                        string sizeText = FormatFileSize(entry.packagefilesize);
+                        AddCustomListItem(entry.packagefilename, sizeText, Color.Black, 10, 20);
+                    }
                 }
 
                 listView1.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             }
             else
             {
-
+                // Handle case when packages is null (e.g., API error)
+                MessageBox.Show("Failed to retrieve package information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
+
+
+
+        private string FormatFileSize(long bytes)
+        {
+            string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
+            int suffixIndex = 0;
+            double size = bytes;
+
+            while (size >= 1024 && suffixIndex < suffixes.Length - 1)
+            {
+                size /= 1024;
+                suffixIndex++;
+            }
+
+            return string.Format("{0:0.##} {1}", size, suffixes[suffixIndex]);
+        }
+
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -430,8 +507,8 @@ namespace Free_MS_Store_Apps
                 return;
             }
 
-            var downloadFileUrl = fileEntries[index].DownloadUrl;
-            var file_name = fileEntries[index].File;
+            var downloadFileUrl = fileEntries[index].packagedownloadurl;
+            var file_name = fileEntries[index].packagefilename;
 
             var destinationFilePath = Path.GetFullPath(file_name);
             label3.Text = "Downloading...";
@@ -443,7 +520,7 @@ namespace Free_MS_Store_Apps
                     progressBar1.Value = (int)progressPercentage;
                     label3.Text = $"Downloading {progressPercentage}%";
 
-                    if(progressPercentage == 100)
+                    if (progressPercentage == 100)
                     {
                         progressBar1.Value = 0;
 
@@ -482,7 +559,7 @@ namespace Free_MS_Store_Apps
         {
             //delete the file
 
-            if (File.Exists(AppCurrentDirctory+ "\\" + fileName + ".cer"))
+            if (File.Exists(AppCurrentDirctory + "\\" + fileName + ".cer"))
             {
                 File.Delete(AppCurrentDirctory + "\\" + fileName + ".cer");
             }
@@ -564,11 +641,11 @@ namespace Free_MS_Store_Apps
 
 
 
-        private void InstallPackage(string fileName,bool fromStart= true)
+        private void InstallPackage(string fileName, bool fromStart = true)
         {
             try
             {
-                string appFilePath = AppCurrentDirctory + "/" +  fileName; // Replace with the actual path
+                string appFilePath = AppCurrentDirctory + "/" + fileName; // Replace with the actual path
                 label3.Text = "Installing App..";
 
                 string powershellCommand = $"Add-AppxPackage -Path '{appFilePath}'";
@@ -614,17 +691,22 @@ namespace Free_MS_Store_Apps
                     //success install
                     if (fromStart)
                     {
-                    StartPoc(fileName);
+                        StartPoc(fileName);
                     }
                 }
             }
             catch (Exception ex)
             {
-               
+
                 Console.WriteLine($"An error occurred: {ex.Message}");
                 MessageBox.Show(ex.Message);
             }
             label3.Text = "";
-       }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

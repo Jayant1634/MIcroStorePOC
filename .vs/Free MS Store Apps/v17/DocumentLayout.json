@@ -1,0 +1,91 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{023D3CF2-1AA9-4CCF-9EF9-3C0E535AA784}|Free MS Store Apps.csproj|c:\\users\\devbk\\downloads\\free ms store apps\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{023D3CF2-1AA9-4CCF-9EF9-3C0E535AA784}|Free MS Store Apps.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{023D3CF2-1AA9-4CCF-9EF9-3C0E535AA784}|Free MS Store Apps.csproj|c:\\users\\devbk\\downloads\\free ms store apps\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{023D3CF2-1AA9-4CCF-9EF9-3C0E535AA784}|Free MS Store Apps.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{023D3CF2-1AA9-4CCF-9EF9-3C0E535AA784}|Free MS Store Apps.csproj|c:\\users\\devbk\\downloads\\free ms store apps\\fileentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{023D3CF2-1AA9-4CCF-9EF9-3C0E535AA784}|Free MS Store Apps.csproj|solutionrelative:fileentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{023D3CF2-1AA9-4CCF-9EF9-3C0E535AA784}|Free MS Store Apps.csproj|c:\\users\\devbk\\downloads\\free ms store apps\\free ms store apps.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{023D3CF2-1AA9-4CCF-9EF9-3C0E535AA784}|Free MS Store Apps.csproj|solutionrelative:free ms store apps.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAKIBAAAAAAAAAAAywMECAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T15:51:07.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\Form1.cs [Design]",
+              "RelativeToolTip": "Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T15:50:06.667Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FileEntry.cs",
+              "DocumentMoniker": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\FileEntry.cs",
+              "RelativeDocumentMoniker": "FileEntry.cs",
+              "ToolTip": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\FileEntry.cs",
+              "RelativeToolTip": "FileEntry.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T15:20:13.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Free MS Store Apps",
+              "DocumentMoniker": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\Free MS Store Apps.csproj",
+              "RelativeDocumentMoniker": "Free MS Store Apps.csproj",
+              "ToolTip": "C:\\Users\\devbk\\Downloads\\Free MS Store Apps\\Free MS Store Apps.csproj",
+              "RelativeToolTip": "Free MS Store Apps.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-02T15:08:22.69Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
